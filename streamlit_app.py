@@ -17,9 +17,9 @@ ALL_POSSIBLE_SECTION_NAMES = [
 
 def find_company_username(company_name):
     payload = {
-        "key": st.secrets[""],
+        "key": st.secrets["GS_KEY"],
         "q": f"site:ambitionbox.com {company_name}",
-        "cx": st.secrets[""],
+        "cx": st.secrets["GS_CX"],
         "start": 1,
         "num": 1
     }
