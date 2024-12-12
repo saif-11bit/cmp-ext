@@ -3,6 +3,8 @@ import pandas as pd
 import requests
 import json
 from bs4 import BeautifulSoup
+import logging
+logging.basicConfig(level=logging.INFO)
 
 ALL_POSSIBLE_SECTION_NAMES = [
     "-overview",
@@ -77,7 +79,7 @@ BUILD_ID = find_build_id(resp)
 def fetch_company_data(company_name, exact_match):
     if exact_match:
         company_username = company_name.lower().replace(" ", "-")
-        print("company_username: ", company_username)
+        logging.info("company_username: ", company_username)
     else:
         company_username = find_company_username(company_name)
     if company_username is None:
@@ -85,10 +87,10 @@ def fetch_company_data(company_name, exact_match):
     """Fetch company data from an external source."""
     AMBITION_BOX_URI = f"https://www.ambitionbox.com/_next/data/{BUILD_ID}/overview/{company_username}-overview.json"
     response = session.get(AMBITION_BOX_URI, headers=headers)
-    print("response url: ", AMBITION_BOX_URI)
-    print("response headers: ", headers)
-    print("response status code: ", response.status_code)
-    # print("response: ", response.text)
+    logging.info("response url: ", AMBITION_BOX_URI)
+    logging.info("response headers: ", headers)
+    logging.info("response status code: ", response.status_code)
+    # logging.info("response: ", response.text)
     data = {}
     if response.status_code == 200:
         response = response.json()
@@ -298,7 +300,7 @@ def main():
     # Button to trigger the search
     if st.button("Search"):
         if input_company:
-            print(input_company)
+            logging.info(input_company)
             data, success = fetch_company_data(input_company.strip(), exact_match)
 
             if success:
