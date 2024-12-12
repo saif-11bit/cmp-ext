@@ -85,7 +85,8 @@ def fetch_company_data(company_name, exact_match):
     """Fetch company data from an external source."""
     AMBITION_BOX_URI = f"https://www.ambitionbox.com/_next/data/{BUILD_ID}/overview/{company_username}-overview.json"
     response = session.get(AMBITION_BOX_URI, headers=headers)
-    print("response: ", response.json())
+    print("response status code: ", response.status_code)
+    print("response: ", response.text)
     data = {}
     if response.status_code == 200:
         response = response.json()
