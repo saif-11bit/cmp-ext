@@ -103,12 +103,14 @@ def display_company_data(data):
         primaryIndustry = meta_info.get("primaryIndustry")
         if len(primaryIndustry):
             primaryIndustry = [i["name"] for i in primaryIndustry]
+            primaryIndustry = ", ".join(primaryIndustry) if len(primaryIndustry) > 1 else primaryIndustry[0]
 
     secondaryIndustry = "N/A"
     if meta_info.get("secondaryIndustry"):
         secondaryIndustry = meta_info.get("secondaryIndustry")
         if len(secondaryIndustry):
             secondaryIndustry = [i["name"] for i in secondaryIndustry]
+            secondaryIndustry = ", ".join(secondaryIndustry) if len(secondaryIndustry) > 1 else secondaryIndustry[0]
 
     st.header(f"Company Overview: {meta_info.get('companyName', 'N/A')}")
 
