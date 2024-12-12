@@ -293,11 +293,12 @@ def main():
 
     # Input field for company name
     input_company = st.text_input("Enter the company name:", "")
-    print(input_company)
+    
     exact_match = st.checkbox("Exact match", value=False)
     # Button to trigger the search
     if st.button("Search"):
         if input_company:
+            print(input_company)
             data, success = fetch_company_data(input_company.strip(), exact_match)
 
             if success:
