@@ -77,6 +77,7 @@ BUILD_ID = find_build_id(resp)
 def fetch_company_data(company_name, exact_match):
     if exact_match:
         company_username = company_name.lower().replace(" ", "-")
+        print("company_username: ", company_username)
     else:
         company_username = find_company_username(company_name)
     if company_username is None:
@@ -84,6 +85,7 @@ def fetch_company_data(company_name, exact_match):
     """Fetch company data from an external source."""
     AMBITION_BOX_URI = f"https://www.ambitionbox.com/_next/data/{BUILD_ID}/overview/{company_username}-overview.json"
     response = session.get(AMBITION_BOX_URI, headers=headers)
+    print("response: ", response.json())
     data = {}
     if response.status_code == 200:
         response = response.json()
