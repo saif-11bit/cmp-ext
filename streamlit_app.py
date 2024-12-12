@@ -48,7 +48,7 @@ def clean_html(raw_html):
     soup = BeautifulSoup(raw_html, "html.parser")
     return soup.get_text(separator="\n").strip()
 
-session = requests.Session()
+
 
 headers = {}
 headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
@@ -57,7 +57,7 @@ headers["accept-encoding"] = "gzip, deflate, br, zstd"
 headers["accept-language"] = "en-GB,en-US;q=0.9,en;q=0.8"
 headers["cache-control"] = "no-cache"
 
-resp = session.get('http://www.ambitionbox.com/overview/google-overview', headers=headers)
+
 
 def find_build_id(response):
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -75,7 +75,7 @@ def find_build_id(response):
         return None
     
 
-def fetch_company_data(build_id, company_name, exact_match):
+def fetch_company_data(build_id,session, company_name, exact_match):
     if exact_match:
         company_username = company_name.lower().replace(" ", "-")
         logging.info(f"company_username: {company_username}")
@@ -300,8 +300,10 @@ def main():
     if st.button("Search"):
         if input_company:
             logging.info(input_company)
+            session = requests.Session()
+            resp = session.get('http://www.ambitionbox.com/overview/google-overview', headers=headers)
             build_id = find_build_id(resp)
-            data, success = fetch_company_data(build_id, input_company.strip(), exact_match)
+            data, success = fetch_company_data(build_id,session, input_company.strip(), exact_match)
 
             if success:
                 # Display company data if found
