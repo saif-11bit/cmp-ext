@@ -74,9 +74,8 @@ def find_build_id(response):
     else:
         return None
     
-BUILD_ID = find_build_id(resp)
 
-def fetch_company_data(company_name, exact_match):
+def fetch_company_data(build_id, company_name, exact_match):
     if exact_match:
         company_username = company_name.lower().replace(" ", "-")
         logging.info(f"company_username: {company_username}")
@@ -85,7 +84,7 @@ def fetch_company_data(company_name, exact_match):
     if company_username is None:
         company_username = company_name.lower().replace(" ", "-")
     """Fetch company data from an external source."""
-    AMBITION_BOX_URI = f"https://www.ambitionbox.com/_next/data/{BUILD_ID}/overview/{company_username}-overview.json"
+    AMBITION_BOX_URI = f"https://www.ambitionbox.com/_next/data/{build_id}/overview/{company_username}-overview.json"
     response = session.get(AMBITION_BOX_URI, headers=headers)
     logging.info(f"response url: {AMBITION_BOX_URI}")
     logging.info(f"response headers: {headers}")
@@ -301,7 +300,8 @@ def main():
     if st.button("Search"):
         if input_company:
             logging.info(input_company)
-            data, success = fetch_company_data(input_company.strip(), exact_match)
+            build_id = find_build_id(resp)
+            data, success = fetch_company_data(build_id, input_company.strip(), exact_match)
 
             if success:
                 # Display company data if found
