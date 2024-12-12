@@ -258,7 +258,7 @@ def display_company_data(data):
     # Display reviews
     st.subheader("Employee Reviews")
     reviews = data.get('reviews', [])
-    if reviews:
+    if len(reviews):
         for review in reviews:
             with st.expander(f"Review by {review.get('userName', 'Anonymous')} (Rating: {review.get('overallCompanyRating', 'N/A')})"):
                 st.write(f"**Likes:** {review.get('likesText', 'N/A')}")
