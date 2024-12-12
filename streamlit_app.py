@@ -98,6 +98,18 @@ def fetch_company_data(company_name, exact_match):
 def display_company_data(data):
     """Display the company data in the Streamlit app."""
     meta_info = data.get('companyMetaInformation', {})
+    primaryIndustry = "N/A"
+    if meta_info.get("primaryIndustry"):
+        primaryIndustry = meta_info.get("primaryIndustry")
+        if len(primaryIndustry):
+            primaryIndustry = [i["name"] for i in primaryIndustry]
+
+    secondaryIndustry = "N/A"
+    if meta_info.get("secondaryIndustry"):
+        secondaryIndustry = meta_info.get("secondaryIndustry")
+        if len(secondaryIndustry):
+            secondaryIndustry = [i["name"] for i in secondaryIndustry]
+
     st.header(f"Company Overview: {meta_info.get('companyName', 'N/A')}")
 
     # Display basic company info with checks for missing data
@@ -111,6 +123,8 @@ def display_company_data(data):
     - **Indian Employee Count**: {meta_info.get('indianEmployeeCountRange', 'N/A')}
     - **Type of Company**: {', '.join([type['name'] for type in meta_info.get('typeOfCompany', [])]) or 'N/A'}
     - **Ownership**: {meta_info.get('ownership', {}).get('name', 'N/A')}
+    - **Primary Industries**: {primaryIndustry}
+    - **Secondary Industries**: {secondaryIndustry}
     """)
 
     st.subheader("Social Media Links")
