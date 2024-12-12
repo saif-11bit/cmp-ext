@@ -266,7 +266,7 @@ def display_company_data(data):
                 st.write(f"**Likes:** {review.get('likesText', 'N/A')}")
                 st.write(f"**Dislikes:** {review.get('disLikesText', 'N/A')}")
                 st.write(f"**Work Policy:** {review.get('workPolicy', 'N/A')} - {review.get('workPolicyOther', 'N/A')}")
-                st.write(f"**Job Location:** {review.get('jobLocation', {}).get('name', 'N/A')}")
+                # st.write(f"**Job Location:** {review.get('jobLocation', {}).get('name', 'N/A')}")
                 st.write(f"**Division:** {review.get('division', 'N/A')}")
                 st.write(f"**Employment Type:** {review.get('employmentType', 'N/A')}")
                 st.write(f"**Modified:** {review.get('modifiedHumanReadable', 'N/A')}")
